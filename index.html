@@ -1,0 +1,132 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Shootin' Gallery!</title>
+	<script type="text/javascript" src="node_modules/phaser/build/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
+    { preload: preload, create: create, update: update }),
+    reticle,
+    platforms,
+    targets,
+    cursors,
+    spaceKey,
+    score = 0,
+    scoreText;
+
+function preload() {
+
+    game.load.image('reticle', 'assets/reticle.png');
+    game.load.image('grass', 'assets/grass.png');
+    game.load.image('grid target', 'assets/grid_target.png');
+    game.load.image('square target', 'assets/square_target.png');
+    game.load.image('x target', 'assets/x_target.png');
+
+}
+
+function create() {
+
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    // The reticle and its settings
+    reticle = game.add.sprite( (game.world.width / 2) - 15, (game.world.height / 2) - 15, 'reticle');
+    reticle.inputEnabled = true;
+    reticle.input.enableDrag();
+    game.physics.arcade.enable(reticle);
+
+    // The bottom platform and its settings
+    platforms = game.add.group();
+    platforms.enableBody = true;
+
+    for (var i = 0; i < 25; i++) {
+        var grass = platforms.create(i * 32, game.world.height - 64, 'grass');
+        grass.body.immovable = true;
+    }
+    platforms.enableBody = true;
+
+    //  The targets we'll shoot, with physics enabled
+    targets = game.add.group();
+    targets.enableBody = true;
+    populateTargets();
+
+    //  The score
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#FFF', font: 'Helvetica' });
+
+    //  Enable the four arrows and spaceKey to be used as controls
+    cursors = game.input.keyboard.createCursorKeys();
+    spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+}
+
+function update() {
+
+    game.physics.arcade.collide(targets, platforms);
+    game.physics.arcade.overlap(reticle, targets, reticleOnTarget, null, this);
+
+    if (targets.countLiving() === 0) {
+        populateTargets();
+    }
+
+    if (cursors.left.isDown) {
+        reticle.body.velocity.x = -150;
+    } else if (cursors.right.isDown) {
+        reticle.body.velocity.x = 150;
+    } else if (cursors.up.isDown) {
+        reticle.body.velocity.y = -150;
+    } else if (cursors.down.isDown) {
+        reticle.body.velocity.y = 150;
+    }
+
+}
+
+function reticleOnTarget(reticle, target) {
+    
+    if (spaceKey.isDown) {
+        if (target.key === 'square target') {
+            score += 10;
+        } else if (target.key === 'grid target') {
+            score += 20;
+        } else if (target.key === 'x target') {
+            score += 30;
+        }
+        target.kill();
+        scoreText.text = 'Score: ' + score;
+    }
+
+}
+
+function populateTargets() {
+    
+    for (var i = 0; i < 12; i++) {
+        var randomDigit = Math.floor(Math.random() * 3),
+            target;
+        
+        if (randomDigit === 0) {
+            target = targets.create(i * 70, 96, 'square target');
+            target.body.gravity.y = 300;
+        } else if (randomDigit === 1) {
+            target = targets.create(i * 70, 96, 'grid target');
+            target.body.gravity.y = 1500;
+        } else if (randomDigit === 2) {
+            target = targets.create(i * 70, 96, 'x target');
+            target.body.gravity.y = 3000;
+        }
+        target.body.bounce.y = 1;
+    }
+
+}
+
+</script>
+</body>
+</html>
