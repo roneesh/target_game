@@ -16,6 +16,7 @@
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
     { preload: preload, create: create, update: update }),
+    squareTargetSprite,
     reticle,
     platforms,
     targets,
@@ -29,9 +30,9 @@ function preload() {
     game.load.image('reticle', 'assets/reticle.png');
     game.load.image('grass', 'assets/grass.png');
     game.load.image('grid target', 'assets/grid_target.png');
-    game.load.image('square target', 'assets/square_target.png');
+    // game.load.image('square target', 'assets/square_target.png');
     game.load.image('x target', 'assets/x_target.png');
-
+    game.load.spritesheet('square target sheet', 'assets/square_target_spritesheet.png', 42, 42, 4);
 }
 
 function create() {
@@ -61,12 +62,19 @@ function create() {
     populateTargets();
 
     //  The score
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#FFF', font: 'Helvetica' });
+    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#FFF', font: 'Helvetica' });
 
     //  Enable the four arrows and spaceKey to be used as controls
     cursors = game.input.keyboard.createCursorKeys();
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.input.mouse.capture = true;
+
+    //  Explosion sprites
+    // squareTargetSprite = game.add.sprite(200, 200, 'square target sheet');
+
+    // var squareExplode = squareTargetSprite.animations.add('square explode', [1, 2, 3, 0]);
+    
+    // squareTargetSprite.animations.play('square explode', 15, true);
 
 }
 
@@ -95,16 +103,20 @@ function update() {
 }
 
 function reticleOnTarget(reticle, target) {
-    
     if (spaceKey.isDown) {
-        if (target.key === 'square target') {
-            score += 10;
+        if (target.key === 'square target sheet') {
+            if (!target.hasOverlapped) {
+                target.animations.play('square explode', 5,false, true);
+                score += 10;
+                target.hasOverlapped = true;  
+            }
         } else if (target.key === 'grid target') {
             score += 20;
+            target.kill();
         } else if (target.key === 'x target') {
             score += 30;
+            target.kill();
         }
-        target.kill();
         scoreText.text = 'Score: ' + score;
     }
 
@@ -117,8 +129,11 @@ function populateTargets() {
             target;
         
         if (randomDigit === 0) {
-            target = targets.create(i * 70, 96, 'square target');
+            target = targets.create(i * 70, 96, 'square target sheet');
             target.body.gravity.y = 300;
+            target.frame = 1;
+            target.animations.add('square explode', [1, 2, 3, 0]);
+            target.hasOverlapped = false;
         } else if (randomDigit === 1) {
             target = targets.create(i * 70, 96, 'grid target');
             target.body.gravity.y = 1500;
