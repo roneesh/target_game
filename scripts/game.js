@@ -1,6 +1,8 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', 
     { preload: preload, create: create, update: update }),
-    squareTargetSprite,
+    squareTargetMultiplier = 1,
+    gridTargetMultiplier = 5,
+    xTargetMultiplier = 10,
     reticle,
     reticleVelocity = 300,
     platforms,
@@ -60,25 +62,30 @@ function populateTargets() {
     
     for (var i = 0; i < 12; i++) {
         var randomDigit = Math.floor(Math.random() * 3),
-            target;
+            target,
+            multiplier,
+            direction = (Math.random() < 0.5 ? 1 : -1);
         
         if (randomDigit === 0) {
             target = targets.create(i * 70, 96, 'square target sheet');
-            target.body.gravity.y = 300;
-
+            multiplier = squareTargetMultiplier
         } else if (randomDigit === 1) {
-            target = targets.create(i * 70, 96, 'grid target sheet');
-            target.body.gravity.y = 1500;
-        
+            target = targets.create(i * 70, 96, 'grid target sheet'); 
+            multiplier = gridTargetMultiplier       
         } else if (randomDigit === 2) {
             target = targets.create(i * 70, 96, 'x target sheet');
-            target.body.gravity.y = 3000;
+            multiplier = xTargetMultiplier;
         }
 
+        target.checkWorldBounds = true;
+        target.outOfBoundsKill = true;
+        target.body.velocity.x = Math.floor(Math.random() * multiplier * direction * 10);
+        target.body.gravity.y = Math.floor(Math.random() * multiplier * 300);
         target.animations.add('explode', [1, 2, 3, 0])
         target.frame = 1;
         target.hasOverlapped = false;
         target.body.bounce.y = 1;
+        target.events.onKilled.add(changeScore);
     }
 
 }
@@ -114,18 +121,28 @@ function reticleOnTarget(reticle, target) {
         target.hasOverlapped = true;  
 
         if (target.key === 'square target sheet') {
-            score += 10;
+            changeScore(10);
         } else if (target.key === 'grid target sheet') {
-            score += 20;
+            changeScore(20);
         } else if (target.key === 'x target sheet') {
-            score += 30;
+            changeScore(30);
         }
-
-        updateScore()
     }
 
 }
 
+
+
 function updateScore() {
     scoreText.text = 'Score: ' + score;
+}
+
+function changeScore(amount) {
+    if (typeof amount === 'number') {
+        score = score + amount;
+    }
+    if (typeof amount === 'object') {
+        score = score - 5;
+    }
+    updateScore();
 }
