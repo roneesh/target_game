@@ -84,7 +84,6 @@ function create() {
     bullets.createMultiple(maxBullets, 'bullet');
     bullets.setAll('checkWorldBounds', true);
     bullets.setAll('outOfBoundsKill', true);
-
 }
 
 function createTargets() {

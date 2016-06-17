@@ -14,12 +14,18 @@ function update() {
 
     game.physics.arcade.overlap(bullets, platforms, bulletHitWall);
 
+    game.physics.arcade.collide(reticle, powerUp, getPowerUp, null, this);
+
     if (squareTargets.countLiving() === 0 &&
         gridTargets.countLiving() === 0 &&
         xTargets.countLiving() === 0) {
         populateTargets();
         round++;
         roundText.text = 'Round ' + round;
+        powerUpProbability = Math.random();
+        if (powerUpProbability > 0.01) {
+            powerUp = game.add.sprite(200, 200, 'power up');
+        }
     }
 
     reticle.body.velocity.x = 0;
@@ -42,6 +48,10 @@ function reticleOnTarget(reticle, target) {
         target.hasOverlapped = true;  
         killTarget(target);
     }
+}
+
+function getPowerUp(reticle, powerUp) {
+    console.log(reticle.key, powerUp.key);
 }
 
 function targetShot(bullet, target) {

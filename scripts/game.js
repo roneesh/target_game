@@ -36,3 +36,5 @@ var blinkBombKey,       //the keyboard key that triggers it
     bulletVelocity = 500    //velocity of bullets
     bulletCount = 20;   //# of bullets you start with
 
+var powerUp,
+    powerUpProbability;

@@ -18,6 +18,7 @@ function populateTargets() {
 
         target.reset(i * (game.world.width / 8), 96);
         target.frame = 1;
+        target.hasOverlapped = false;
         target.body.velocity.x = Math.floor(Math.random() * multiplier * 50);
         target.body.velocity.y = Math.floor(Math.random() * multiplier * 50);
         target.body.bounce.set(1);
