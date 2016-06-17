@@ -1,10 +1,20 @@
 function update() {
 
-    game.physics.arcade.collide(targets, platforms);
-    game.physics.arcade.overlap(reticle, targets, reticleOnTarget, null, this);
-    game.physics.arcade.overlap(bullets, targets, targetShot, null, this);
+    game.physics.arcade.collide(squareTargets, platforms);
+    game.physics.arcade.overlap(reticle, squareTargets, reticleOnTarget, null, this);
+    game.physics.arcade.overlap(bullets, squareTargets, targetShot, null, this);
+    game.physics.arcade.collide(gridTargets, platforms);
+    game.physics.arcade.overlap(reticle, gridTargets, reticleOnTarget, null, this);
+    game.physics.arcade.overlap(bullets, gridTargets, targetShot, null, this);
+    game.physics.arcade.collide(xTargets, platforms);
+    game.physics.arcade.overlap(reticle, xTargets, reticleOnTarget, null, this);
+    game.physics.arcade.overlap(bullets, xTargets, targetShot, null, this);
 
-    if (targets.countLiving() === 0) {
+
+
+    if (squareTargets.countLiving() === 0 &&
+        gridTargets.countLiving() === 0 &&
+        xTargets.countLiving() === 0) {
         populateTargets();
         round++;
         roundText.text = 'Round ' + round;
@@ -39,7 +49,6 @@ function targetShot(bullet, target) {
 
 function killTarget(target) {
     var type = target.key;
-    console.log('target in killTarget')
     if (type === 'square target sheet') {
         changeScore(10)
     }

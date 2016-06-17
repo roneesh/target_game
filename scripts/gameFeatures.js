@@ -6,25 +6,21 @@ function populateTargets() {
             multiplier,
             direction = (Math.random() < 0.5 ? 1 : -1);
         
-        // if (randomDigit === 0) {}
-            target = targets.create(i * 70, 96, 'square target sheet');
+        if (randomDigit === 0) {
+            target = squareTargets.getFirstDead();
             multiplier = squareTargetMultiplier
-        // } else if (randomDigit === 1) {
-            // target = targets.create(i * 70, 96, 'grid target sheet'); 
-            // multiplier = gridTargetMultiplier       
-        // } else if (randomDigit === 2) {
-            // target = targets.create(i * 70, 96, 'x target sheet');
-            // multiplier = xTargetMultiplier;
-        // }
+        } else if (randomDigit === 1) {
+            target = gridTargets.getFirstDead();
+            multiplier = gridTargetMultiplier       
+        } else if (randomDigit === 2) {
+            target = xTargets.getFirstDead();
+            multiplier = xTargetMultiplier;
+        }
 
-        target.checkWorldBounds = true;
-        target.outOfBoundsKill = true;
-        target.body.velocity.x = Math.floor(Math.random() * multiplier * direction * 10);
-        target.body.gravity.y = Math.floor(Math.random() * multiplier * 300);
-        var explode = target.animations.add('explode', [1, 2, 3, 0]);
-        explode.killOnComplete = true;
+        target.reset(i * 70, 96);
         target.frame = 1;
-        target.hasOverlapped = false;
+        target.body.velocity.x = Math.floor(Math.random() * multiplier * direction * 1);
+        target.body.gravity.y = Math.floor(Math.random() * multiplier * 300);
         target.body.bounce.y = 1;
     }
 
@@ -32,9 +28,15 @@ function populateTargets() {
 
 function blinkBomb() {
     if (blinkBombs > 0) {
-        targets.forEachAlive(function(target) {
+        squareTargets.forEachAlive(function(target) {
             killTarget(target);
         });
+        gridTargets.forEachAlive(function(target) {
+            killTarget(target);
+        })
+        xTargets.forEachAlive(function(target) {
+            killTarget(target);
+        })
         blinkBombs--;
         blinkBombsText.text = 'Blink Bombs: ' + blinkBombs;
     }

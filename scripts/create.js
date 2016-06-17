@@ -38,9 +38,36 @@ function create() {
     bulletsKey.onDown.add(fireBullet);
 
     //  The targets we'll shoot, with physics enabled
-    targets = game.add.group();
-    targets.enableBody = true;
-    targets.physicsBodyType = Phaser.Physics.ARCADE;
+    squareTargets = game.add.group();
+    squareTargets.enableBody = true;
+    squareTargets.physicsBodyType = Phaser.Physics.ARCADE;
+    squareTargets.createMultiple(maxSquareTargets, 'square target sheet');
+    squareTargets.setAll('checkWorldBounds', true);
+    squareTargets.setAll('outOfBoundsKill', true);
+    squareTargets.setAll('hasOverlapped', false);
+    squareTargets.setAll('frame', 1);
+    squareTargets.callAll('animations.add', 'animations', 'explode', [1, 2, 3, 0], 5, false, true);
+
+    gridTargets = game.add.group();
+    gridTargets.enableBody = true;
+    gridTargets.physicsBodyType = Phaser.Physics.ARCADE;
+    gridTargets.createMultiple(maxGridTargets, 'grid target sheet');
+    gridTargets.setAll('checkWorldBounds', true);
+    gridTargets.setAll('outOfBoundsKill', true);
+    gridTargets.setAll('hasOverlapped', false);
+    gridTargets.setAll('frame', 1);
+    gridTargets.callAll('animations.add', 'animations', 'explode', [1, 2, 3, 0], 5, false, true);
+    
+    xTargets = game.add.group();
+    xTargets.enableBody = true;
+    xTargets.physicsBodyType = Phaser.Physics.ARCADE;
+    xTargets.createMultiple(maxXTargets, 'x target sheet');
+    xTargets.setAll('checkWorldBounds', true);
+    xTargets.setAll('outOfBoundsKill', true);
+    xTargets.setAll('hasOverlapped', false);
+    xTargets.setAll('frame', 1);
+    xTargets.callAll('animations.add', 'animations', 'explode', [1, 2, 3, 0], 5, false, true);
+
     populateTargets();
 
     //  bullets group
