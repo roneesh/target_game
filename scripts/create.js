@@ -12,7 +12,7 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
 
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 24; i++) {
         var grass = platforms.create(i * 32, game.world.height - 32, 'grass');
         var leftWall = platforms.create(0, i * 32, 'brick');
         var rightWall = platforms.create(game.world.width - 32, i * 32, 'brick');
@@ -28,7 +28,7 @@ function create() {
     scoreText = game.add.text(48, 48, 'Score: 0', scoreText);
     roundText = game.add.text(50, 132, 'Round 1', infoText);
     blinkBombsText = game.add.text(50, 92, ('Blink Bombs: ' + blinkBombs),  infoText);
-    bulletsText = game.add.text(50, 112, ('Bullets: infinite'),  infoText);
+    bulletsText = game.add.text(50, 112, ('Bullets: ' + bulletCount),  infoText);
 
     //  Enable the four arrows and spaceKey to be used as controls
     cursors = game.input.keyboard.createCursorKeys();

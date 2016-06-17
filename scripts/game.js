@@ -27,10 +27,12 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game',
 
 var blinkBombKey,       //the keyboard key that triggers it
     blinkBombsText,     //the text that indicates qty.
-    blinkBombs = 100,     //the initial qty.
+    blinkBombs = 1,     //the initial qty.
     bulletsKey,         //the key to fire a bullet
     bulletsText,        //the text of bullet qty.
     fireRate = 1000,     //increasing this decreases the rate of fire
     nextFire = 0,
     maxBullets = 12,    //max # of bullets on screen 
-    bulletVelocity = 500    //velocity of bullets     
+    bulletVelocity = 500    //velocity of bullets
+    bulletCount = 20;   //# of bullets you start with
+

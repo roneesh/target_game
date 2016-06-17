@@ -42,7 +42,7 @@ function blinkBomb() {
 }
 
 function fireBullet() {
-    if (game.time.now > nextFire && bullets.countDead() > 4) {   
+    if (game.time.now > nextFire && bullets.countDead() > 4 && bulletCount > 0) {   
         //this is what pauses firing for a bit
         nextFire = game.time.now + fireRate;
 
@@ -64,5 +64,8 @@ function fireBullet() {
         bullet4.reset(reticle.position.x + 40, reticle.position.y + 40);
         bullet4.angle = 90;
         bullet4.body.velocity.y = bulletVelocity;
+
+        bulletCount = bulletCount - 4;
+        bulletsText.text = 'Bullets: ' + bulletCount;
     }
 }
