@@ -13,16 +13,22 @@ function create() {
     platforms.enableBody = true;
 
     for (var i = 0; i < 25; i++) {
-        var grass = platforms.create(i * 32, game.world.height - 64, 'grass');
+        var grass = platforms.create(i * 32, game.world.height - 32, 'grass');
+        var leftWall = platforms.create(0, i * 32, 'brick');
+        var rightWall = platforms.create(game.world.width - 32, i * 32, 'brick');
+        var roof = platforms.create(i * 32, 0, 'brick');
         grass.body.immovable = true;
+        leftWall.body.immovable = true;
+        rightWall.body.immovable = true;
+        roof.body.immovable = true;
     }
     platforms.enableBody = true;
 
     //  The score
-    scoreText = game.add.text(16, 16, 'Score: 0', scoreText);
-    roundText = game.add.text(18, 100, 'Round 1', infoText);
-    blinkBombsText = game.add.text(18, 60, ('Blink Bombs: ' + blinkBombs),  infoText);
-    bulletsText = game.add.text(18, 80, ('Bullets: infinite'),  infoText);
+    scoreText = game.add.text(48, 48, 'Score: 0', scoreText);
+    roundText = game.add.text(50, 132, 'Round 1', infoText);
+    blinkBombsText = game.add.text(50, 92, ('Blink Bombs: ' + blinkBombs),  infoText);
+    bulletsText = game.add.text(50, 112, ('Bullets: infinite'),  infoText);
 
     //  Enable the four arrows and spaceKey to be used as controls
     cursors = game.input.keyboard.createCursorKeys();

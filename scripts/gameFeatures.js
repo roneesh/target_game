@@ -1,11 +1,10 @@
 function populateTargets() {
     
-    for (var i = 0; i < 12; i++) {
+    for (var i = 1; i < 9; i++) {
         var randomDigit = Math.floor(Math.random() * 3),
             target,
-            multiplier,
-            direction = (Math.random() < 0.5 ? 1 : -1);
-        
+            multiplier;
+
         if (randomDigit === 0) {
             target = squareTargets.getFirstDead();
             multiplier = squareTargetMultiplier
@@ -17,11 +16,11 @@ function populateTargets() {
             multiplier = xTargetMultiplier;
         }
 
-        target.reset(i * 70, 96);
+        target.reset(i * (game.world.width / 8), 96);
         target.frame = 1;
-        target.body.velocity.x = Math.floor(Math.random() * multiplier * direction * 1);
-        target.body.gravity.y = Math.floor(Math.random() * multiplier * 300);
-        target.body.bounce.y = 1;
+        target.body.velocity.x = Math.floor(Math.random() * multiplier * 50);
+        target.body.velocity.y = Math.floor(Math.random() * multiplier * 50);
+        target.body.bounce.set(1);
     }
 
 }

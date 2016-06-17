@@ -3,14 +3,16 @@ function update() {
     game.physics.arcade.collide(squareTargets, platforms);
     game.physics.arcade.overlap(reticle, squareTargets, reticleOnTarget, null, this);
     game.physics.arcade.overlap(bullets, squareTargets, targetShot, null, this);
+
     game.physics.arcade.collide(gridTargets, platforms);
     game.physics.arcade.overlap(reticle, gridTargets, reticleOnTarget, null, this);
     game.physics.arcade.overlap(bullets, gridTargets, targetShot, null, this);
+
     game.physics.arcade.collide(xTargets, platforms);
     game.physics.arcade.overlap(reticle, xTargets, reticleOnTarget, null, this);
     game.physics.arcade.overlap(bullets, xTargets, targetShot, null, this);
 
-
+    game.physics.arcade.overlap(bullets, platforms, bulletHitWall);
 
     if (squareTargets.countLiving() === 0 &&
         gridTargets.countLiving() === 0 &&
@@ -44,6 +46,10 @@ function reticleOnTarget(reticle, target) {
 
 function targetShot(bullet, target) {
     killTarget(target);
+    bullet.kill();
+}
+
+function bulletHitWall(bullet, wall) {
     bullet.kill();
 }
 
