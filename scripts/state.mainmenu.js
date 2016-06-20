@@ -18,10 +18,9 @@ var mainMenu = {
 
         this.game.add.text(100,140, instructionText, instructionStyle) 
         
-        var that = this;
-
-        setTimeout(function() {
-        	that.state.start('MainGame');
-        }, 1000)
+        var button = this.game.add.button(this.game.world.centerX - 95, 400, 'button', this.start, this, 2, 1, 0);
+	},
+	start: function() {
+		this.state.start('MainGame');
 	}
 }

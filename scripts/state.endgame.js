@@ -12,5 +12,12 @@ var endGame = {
 			introStyle = { font: '32px Helvetica', fill: '#000',boundsAlignH: "", boundsAlignV: "middle"};
         
         this.game.add.text(100,100, introText, introStyle);
+	
+		var button = this.game.add.button(this.game.world.centerX - 95, 400, 'button', this.reStart, this, 2, 1, 0);
+	},
+	reStart: function() {
+		blinkBombs = 2;
+		changeScore(0);
+		this.state.start('MainGame');
 	}
 }

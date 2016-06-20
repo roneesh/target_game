@@ -109,5 +109,9 @@ function changeScore(amount) {
     if (typeof amount === 'number') {
         score = score + amount;
     }
+    if (amount === 0) {
+        score = 0;
+    }
     scoreText.text = 'Score: ' + score;
 }
+

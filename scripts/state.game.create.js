@@ -27,7 +27,7 @@ mainGame.create = function() {
     platforms.enableBody = true;
 
     //  The score
-    scoreText = this.game.add.text(48, 48, 'Score: 0', scoreText);
+    scoreText = this.game.add.text(48, 48, 'Score: 0', scoreTextProps);
     roundText = this.game.add.text(50, 132, 'Round 1', infoText);
     blinkBombsText = this.game.add.text(50, 92, ('Blink Bombs: ' + blinkBombs),  infoText);
     bulletsText = this.game.add.text(50, 112, ('Bullets: ' + bulletCount),  infoText);

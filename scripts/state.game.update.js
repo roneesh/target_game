@@ -16,6 +16,7 @@ mainGame.update = function() {
 
     this.game.physics.arcade.overlap(bullets, platforms, bulletHitWall);
 
+    this.game.physics.arcade.collide(reticle, platforms);
     this.game.physics.arcade.collide(reticle, powerUp, getPowerUp, null, this);
 
     if (squareTargets.countLiving() === 0 &&

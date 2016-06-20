@@ -19,7 +19,7 @@ var squareTargetMultiplier = 1,
     infoText = {
         fontSize: '16px', font: 'Helvetica', fill: '#FFF'
     },
-    scoreText = {
+    scoreTextProps = {
         fontSize: '38px', font: 'Helvetica', fill: '#FFF'
     },
     score = 0,
@@ -29,7 +29,7 @@ var squareTargetMultiplier = 1,
 
 var blinkBombKey,       //the keyboard key that triggers it
     blinkBombsText,     //the text that indicates qty.
-    blinkBombs = 1,     //the initial qty.
+    blinkBombs = 2,     //the initial qty.
     bulletsKey,         //the key to fire a bullet
     bulletsText,        //the text of bullet qty.
     fireRate = 1000,     //increasing this decreases the rate of fire
