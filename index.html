@@ -4,16 +4,17 @@
 	<meta charset="UTF-8" />
     <title>Shootin' Gallery!</title>
     <link rel="stylesheet" href="./styles/styles.css" />
+    <script type="text/javascript" src="node_modules/phaser/build/phaser.min.js"></script>
 </head>
 <body>
     <div id="game"></div>
-    <script type="text/javascript" src="node_modules/phaser/build/phaser.min.js"></script>
-    <script type="text/javascript" src="./scripts/create.js"></script>
-    <script type="text/javascript" src="./scripts/preload.js"></script>
-    <script type="text/javascript" src="./scripts/update.js"></script>
-    <script type="text/javascript" src="./scripts/game.js"></script>
-    <script type="text/javascript" src="./scripts/gameFeatures.js"></script>
-
-
+    <script type="text/javascript" src="scripts/state.preload.js"></script>
+    <script type="text/javascript" src="scripts/state.mainmenu.js"></script>
+    <script type="text/javascript" src="scripts/state.endgame.js"></script>
+    <script type="text/javascript" src="scripts/state.game.preload.js"></script>
+    <script type="text/javascript" src="scripts/state.game.create.js"></script>
+    <script type="text/javascript" src="scripts/state.game.update.js"></script>
+    <script type="text/javascript" src="scripts/state.game.utility.js"></script>
+    <script type="text/javascript" src="scripts/game.js"></script>
 </body>
 </html>

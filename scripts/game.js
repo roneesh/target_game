@@ -1,6 +1,8 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', 
-    { preload: preload, create: create, update: update }),
-    squareTargetMultiplier = 1,
+var shootingGallery = shootingGallery || {};
+
+shootingGallery.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
+
+var squareTargetMultiplier = 1,
     gridTargetMultiplier = 5,
     xTargetMultiplier = 15,
     maxSquareTargets = 12,
@@ -38,3 +40,10 @@ var blinkBombKey,       //the keyboard key that triggers it
 
 var powerUp,
     powerUpProbability;
+
+shootingGallery.game.state.add('Preload', preload);
+shootingGallery.game.state.add('MainMenu', mainMenu);
+shootingGallery.game.state.add('MainGame', mainGame);
+shootingGallery.game.state.add('EndGame', endGame);
+
+shootingGallery.game.state.start('Preload');

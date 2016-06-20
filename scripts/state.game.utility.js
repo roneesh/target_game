@@ -1,5 +1,5 @@
 function populateTargets() {
-    
+    console.log('populateTargets')
     for (var i = 1; i < 9; i++) {
         var randomDigit = Math.floor(Math.random() * 3),
             target,
@@ -16,7 +16,7 @@ function populateTargets() {
             multiplier = xTargetMultiplier;
         }
 
-        target.reset(i * (game.world.width / 8), 96);
+        target.reset(i * (shootingGallery.game.world.width / 8), 96);
         target.frame = 1;
         target.hasOverlapped = false;
         target.body.velocity.x = Math.floor(Math.random() * multiplier * 50);
@@ -43,9 +43,9 @@ function blinkBomb() {
 }
 
 function fireBullet() {
-    if (game.time.now > nextFire && bullets.countDead() > 4 && bulletCount > 0) {   
+    if (shootingGallery.game.time.now > nextFire && bullets.countDead() > 4 && bulletCount > 0) {   
         //this is what pauses firing for a bit
-        nextFire = game.time.now + fireRate;
+        nextFire = shootingGallery.game.time.now + fireRate;
 
         var bullet1 = bullets.getFirstDead();
         bullet1.reset(reticle.position.x + 40, reticle.position.y);
@@ -69,4 +69,45 @@ function fireBullet() {
         bulletCount = bulletCount - 4;
         bulletsText.text = 'Bullets: ' + bulletCount;
     }
+}
+
+function reticleOnTarget(reticle, target) {
+    if (spaceKey.isDown && !target.hasOverlapped) {
+        target.hasOverlapped = true;  
+        killTarget(target);
+    }
+}
+
+function getPowerUp(reticle, powerUp) {
+    console.log(reticle.key, powerUp.key);
+}
+
+function targetShot(bullet, target) {
+    killTarget(target);
+    bullet.kill();
+}
+
+function bulletHitWall(bullet, wall) {
+    bullet.kill();
+}
+
+function killTarget(target) {
+    var type = target.key;
+    if (type === 'square target sheet') {
+        changeScore(10)
+    }
+    if (type === 'grid target sheet') {
+        changeScore(20)
+    }
+    if (type === 'x target sheet') {
+        changeScore(30)
+    }
+    target.animations.play('explode', 5, false, true);
+}
+
+function changeScore(amount) {
+    if (typeof amount === 'number') {
+        score = score + amount;
+    }
+    scoreText.text = 'Score: ' + score;
 }
