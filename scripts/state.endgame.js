@@ -17,6 +17,7 @@ var endGame = {
 	},
 	reStart: function() {
 		blinkBombs = 2;
+		bulletCount = 20;
 		changeScore(0);
 		this.state.start('MainGame');
 	}

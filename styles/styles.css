@@ -1,4 +1,11 @@
-#game {
+#game, #information {
 	width: 800px;
 	margin: 25px auto;
 }	
+#information {
+	text-align: center;
+	font-family: 'Big Caslon', serif;
+}
+#information hr {
+	width: 100px;
+}

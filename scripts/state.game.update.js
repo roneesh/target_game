@@ -23,9 +23,9 @@ mainGame.update = function() {
         gridTargets.countLiving() === 0 &&
         xTargets.countLiving() === 0) {
 
-        if (score >= 200) {
-            this.state.start('EndGame');
-        } else {
+        // if (score >= winningScore) {
+            // this.state.start('EndGame');
+        // } else {
             populateTargets();
             round++;
             roundText.text = 'Round ' + round;
@@ -33,7 +33,7 @@ mainGame.update = function() {
             // if (powerUpProbability > 0.01) {
             //     powerUp = this.game.add.sprite(200, 200, 'power up');
             // }
-        }
+        // }
     }
 
     reticle.body.velocity.x = 0;

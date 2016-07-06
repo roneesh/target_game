@@ -24,19 +24,20 @@ var squareTargetMultiplier = 1,
     },
     score = 0,
     scoreText,
+    winningScore = 1000,
     round = 0,
     roundText;
 
 var blinkBombKey,       //the keyboard key that triggers it
     blinkBombsText,     //the text that indicates qty.
-    blinkBombs = 2,     //the initial qty.
+    blinkBombs = 20,     //the initial qty.
     bulletsKey,         //the key to fire a bullet
     bulletsText,        //the text of bullet qty.
     fireRate = 1000,     //increasing this decreases the rate of fire
     nextFire = 0,
     maxBullets = 12,    //max # of bullets on screen 
     bulletVelocity = 500    //velocity of bullets
-    bulletCount = 20;   //# of bullets you start with
+    bulletCount = 80;   //# of bullets you start with
 
 var powerUp,
     powerUpProbability;
